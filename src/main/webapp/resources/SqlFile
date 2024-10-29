@@ -1,0 +1,12 @@
+2024.10.29
+
+CREATE TABLE board (
+  bno BIGINT AUTO_INCREMENT,
+  title VARCHAR(500) NOT NULL,
+  writer VARCHAR(500) NOT NULL,
+  content TEXT,
+  is_del CHAR(1) DEFAULT 'N',
+  reg_date DATETIME DEFAULT NOW(),
+  read_count INT DEFAULT 0,
+  PRIMARY KEY (bno)
+);
