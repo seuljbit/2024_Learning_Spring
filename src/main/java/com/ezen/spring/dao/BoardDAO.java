@@ -11,6 +11,8 @@ public interface BoardDAO {
 	public int insert(BoardVO bvo);
 
 	public List<BoardVO> getList(PagingVO pgvo);
+	
+	int incrementReadCount(int bno);
 
 	public BoardVO getDetail(int bno);
 

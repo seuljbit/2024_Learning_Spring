@@ -34,6 +34,7 @@ public class BoardController {
         log.info(">>> insert : {}", isOk > 0 ? "Ok!" : "Fail");
         
         return "redirect:/"; // redirect:/board/list를 통해 컨트롤러의 매핑 위치로 연결
+        //return "redirect:/board/detail?bno=" + bvo.getBno();
     }
     
     @GetMapping("/list")

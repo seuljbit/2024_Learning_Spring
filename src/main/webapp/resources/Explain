@@ -26,3 +26,13 @@
  - 전체 페이지 수 : DB에서 조회해와야 하는 값(매개변수로 받아오기)
  - 현재 페이지 번호 : pagingVO의 pageNO 사용(매개변수로 받아오기)
  - 최종 페이지 끝 번호 : 181
+ 
+ * comment
+ create table comment(
+ cno bigint auto_increment,
+ bno bigint not null,
+ writer varchar(500) not null,
+ content text,
+ reg_date datetime default now(),
+ primary key(cno));
+ 

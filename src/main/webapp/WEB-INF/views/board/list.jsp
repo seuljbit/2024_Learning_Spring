@@ -5,7 +5,7 @@
 <jsp:include page="../layout/header.jsp" />
 
 <div class="container-md">
-    <h1>list</h1> ${ph}
+    <h1> 목록 </h1> ${ph}
     
 	<form action="/board/list" method="get">
 	    <div class="input-group mb-3">
@@ -30,8 +30,6 @@
 			    	<span class="visually-hidden">unread messages</span>
 			    </span>
 			</button>
-
-	        
 	    </div>
 	</form>
 
@@ -39,10 +37,10 @@
         <thead>
             <tr>
                 <th scope="col"> # </th>
-                <th scope="col"> title </th>
-                <th scope="col"> writer </th>
-                <th scope="col"> regDate </th>
-                <th scope="col"> readCount </th>
+                <th scope="col"> 제 목 </th>
+                <th scope="col"> 작성자 </th>
+                <th scope="col"> 작성일 </th>
+                <th scope="col"> 조회수 </th>
             </tr>
         </thead>
         <tbody>

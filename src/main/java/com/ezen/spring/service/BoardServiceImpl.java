@@ -29,7 +29,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO getDetail(int bno) {
-		return bdao.getDetail(bno);
+	    bdao.incrementReadCount(bno);
+	    return bdao.getDetail(bno);
 	}
 
 	@Override
@@ -47,6 +48,8 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotal(PagingVO pgvo) {
 		return bdao.getTotal(pgvo);
 	}
+	
+
 	
 	
 }

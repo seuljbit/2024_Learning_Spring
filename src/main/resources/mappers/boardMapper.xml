@@ -18,6 +18,12 @@
 		limit #{pageStart}, #{qty}
 	</select>
 	
+	<update id="incrementReadCount">
+	    UPDATE board
+	    SET read_count = read_count + 1
+	    WHERE bno = #{bno}
+	</update>
+	
 	<select id="getDetail" resultType="com.ezen.spring.domain.BoardVO">
 		select * from board
 		where bno = #{bno}
