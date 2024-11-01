@@ -34,15 +34,19 @@
 		where bno = #{bno}
 	</update>
 	
-	<delete id="delete">
+	<update id="delete">
 	    update board set is_del = 'Y'
 	    where bno = #{bno}
-	</delete>
+	</update>
 	
 	<select id="getTotal" resultType="int">
 		select count(bno) from board
 		where is_del = 'N'
 		<include refid="search"></include>
+	</select>
+	
+	<select id="getOneBno" resultType="long">
+		select max(bno) from board
 	</select>
 	
 	<!-- search 동적 쿼리 -->

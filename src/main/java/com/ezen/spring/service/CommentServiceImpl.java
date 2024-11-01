@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ezen.spring.dao.CommentDAO;
+import com.ezen.spring.domain.BoardDTO;
+import com.ezen.spring.domain.BoardVO;
 import com.ezen.spring.domain.CommentVO;
+import com.ezen.spring.domain.FileVO;
 import com.ezen.spring.domain.PagingVO;
 import com.ezen.spring.handler.PagingHandler;
 
@@ -47,4 +50,6 @@ public class CommentServiceImpl implements CommentService {
 		
 		return ph;
 	}
+	
+
 }

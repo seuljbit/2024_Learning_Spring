@@ -14,6 +14,10 @@
 <div class="container mt-5">
     <h2 class="text-center text-dark mb-4"> 게시글 상세 정보 </h2>
     <hr>
+    <!-- request 객체로 온 값은 ${bdto} -->
+    <!-- c:set 은 값을 저장하는 용도 -->
+    
+    <c:set value="${bdto.bvo}" var="bvo"></c:set>
     
     <!-- 게시글 정보 -->
     <div class="card p-4 mb-4 shadow-sm">
@@ -45,6 +49,44 @@
         <div class="mb-3">
             <label for="readCount" class="form-label font-weight-bold">조회수</label>
             <input type="text" class="form-control" id="readCount" name="readCount" value="${bvo.readCount}" readonly>
+        </div>
+        
+    	<c:set value="${bdto.fileList}" var="fileList"></c:set>
+        <div class="mb-3">
+    		<ul class="list-group list-group-flush">
+    		<c:forEach items="${fileList }" var="fvo">
+    		${fvo }
+    			<li class="list-group-item">
+    				<c:choose>
+    					<c:when test="${fvo.fileType > 0 }">
+    						<div class="d-flex justify-content-between align-items-center mb-2">
+    							<img alt="" src="/upload/${fvo.saveDir }/${fvo.uuid}_${fvo.fileName}">
+    						</div>
+    					</c:when>
+    					<c:otherwise> </c:otherwise>
+    				</c:choose>
+    				<div class="d-flex justify-content-between align-items-center mb-2">
+		            <span class="fw-bold">${fvo.fileName}</span>
+		            <span class="badge badge-primary">${fvo.regDate} / ${fvo.fileSize }B </span>
+		        </div>
+    			</li>
+    		</c:forEach>
+    		
+    			<!-- 파일의 개수만큼 li를 반복하여 파일 표시 타입이 1인 경우만 그림을 표시 -->
+			   <!-- <li class="list-group-item">
+			        <div class="d-flex justify-content-between align-items-center mb-2">
+			            <span class="fw-bold text-primary">${cvo.writer}</span>
+			            <span class="badge badge-primary">${cvo.regDate}</span>
+			        </div>
+			        <p class="mb-0">${cvo.content}</p>
+			        
+			        수정 및 삭제 버튼
+			        <div class="d-flex justify-content-end mt-2">
+			            <button type="button" data-cno="${cvo.cno}" class="btn btn-outline-secondary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#myModal"> 수정 </button>
+			            <button type="button" data-cno="${cvo.cno}" class="btn btn-outline-danger btn-sm"> 삭제 </button>
+			        </div>
+			    </li> -->
+			</ul>
         </div>
 
         <div class="d-flex justify-content-end">

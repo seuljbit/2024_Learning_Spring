@@ -14,11 +14,13 @@ public interface BoardDAO {
 	
 	int incrementReadCount(int bno);
 
-	public BoardVO getDetail(int bno);
+	public BoardVO getDetail(long bno);
 
 	public int update(BoardVO bvo);
 
 	public int delete(int bno);
 
 	public int getTotal(PagingVO pgvo);
+
+	public long getOneBno();
 }
