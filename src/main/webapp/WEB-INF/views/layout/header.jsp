@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +78,22 @@ footer {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/"> index </a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="/board/register"> 글 작성 </a> </li>
+                        <!-- 인증 객체가 만들어져있는 상태 -->
+                        <!-- 인증 객체 가져오기 -> 현재 로그인 정보는 : principal -->
+                        <sec:authorize access="isAuthenticated()">
+                        	<sec:authentication property="principal.uvo.email" var="authEmail"/>
+                        	<sec:authentication property="principal.uvo.nickName" var="authNick"/>
+                       		<li class="nav-item"> <a class="nav-link" href="/board/register"> 글 작성 </a> </li>
+                       		<li class="nav-item"> <a class="nav-link" href="#"> ${authNick }(${authEmail }) </a> </li>
+                        	<li class="nav-item"> <a class="nav-link" href="/user/logout"> 로그아웃 </a> </li>
+                        </sec:authorize>
+                        
                         <li class="nav-item"> <a class="nav-link" href="/board/list"> 게시판 보기 </a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="#"> Link 3 </a> </li>
-                        <li class="nav-item"> <a class="nav-link" href="#"> Link 4 </a> </li>
+                        
+                        <sec:authorize access="isAnonymous()">
+	                        <li class="nav-item"><a class="nav-link" href="/user/register">회원가입</a> </li>
+							<li class="nav-item"><a class="nav-link" href="/user/login">로그인</a> </li>
+                        </sec:authorize>
                     </ul>
                 </div>
             </div>

@@ -19,5 +19,7 @@
   <logger name="jdbc.sqlonly" level="info" appender-ref="STDOUT" />
   <logger name="jdbc.resultsettable" level="info" appender-ref="STDOUT" />  
 
-  <root level="INFO"> <appender-ref ref="STDOUT" /> </root>
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
 </configuration>

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {com.ezen.spring.config.RootConfig.class})
 public class BoardTest {
+	
 	@Autowired
 	private BoardDAO bdao;
 	
@@ -22,11 +23,14 @@ public class BoardTest {
 	public void insertBoardDummies() {
 		for(int i=0; i<5000; i++) {
 			BoardVO bvo = new BoardVO();
-			bvo.setTitle("Test Title " + i);
-			bvo.setWriter("tester " + ((int)(Math.random()*500)+1)+"@tester.com");
-			bvo.setContent("Test Content " + i);
+			bvo.setTitle("Test Title "+ i);
+			bvo.setWriter("tester"+ ((int)(Math.random()*500)+1)+"@tester.com");
+			bvo.setContent("Test Content ... "+ i);
 			
 			bdao.insert(bvo);
 		}
 	}
+	
+	
+
 }

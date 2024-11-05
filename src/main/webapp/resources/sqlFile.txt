@@ -1,0 +1,51 @@
+-- 24.10.29
+
+create table board(
+bno bigint auto_increment,
+title varchar(500) not null,
+writer varchar(500) not null,
+content text,
+is_del varchar(5) default 'N',
+reg_date datetime default now(),
+read_count int default 0,
+primary key(bno));
+
+-- 24.10.31
+create table comment(
+cno bigint auto_increment,
+bno bigint not null, 
+writer varchar(500) not null, 
+content text, 
+reg_date datetime default now(),
+primary key(cno));
+
+-- 24.11.01
+create table file (
+uuid varchar(256) not null,
+save_dir varchar(256) not null,
+file_name varchar(256) not null,
+file_type tinyint(1) default 0, 
+bno bigint,
+file_size bigint,
+reg_date datetime default now(),
+primary key(uuid));
+
+-- 24.11.05
+create table user (
+email varchar(256) not null,
+pwd varchar(256) not null,
+nickName varchar(256),
+reg_date datetime default now(),
+lastLogin datetime default now(),
+primary key(email));
+
+-- 권한 테이블 (auth_member)
+-- ADMIN + MANAGER + USER
+crate table auth(
+id bigint auto_increment,
+email varchar(256) not null,
+auth varchar(256) not null
+
+-- 외래키 지정
+primary key(id),
+foreign key(email) references user(email));
