@@ -14,9 +14,7 @@ document.addEventListener('click', (e) => {
 async function removeFileToserver(uuid) {
     try {
         const url = '/board/file/' + uuid;
-        const config = {
-            method : 'delete'
-        }
+        const config = { method : 'delete' }
         const resp = await fetch(url, config);
         const result = await resp.text();
         return result;

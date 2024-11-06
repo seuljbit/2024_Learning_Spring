@@ -1,105 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>header.jsp</title>
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous">
+</script>
 <style>
-.navbar {
-    background-color: #343a40;
-    color: #f8f9fa !important;
+.navbar-custom {
+	background-color: #343a40;
 }
 
-.navbar-brand, .nav-link {
-    color: #f8f9fa !important;
-    padding: 0 15px;
+.navbar-custom .navbar-brand, .navbar-custom .nav-link {
+	color: #f8f9fa;
+	transition: color 0.3s ease;
 }
 
-.nav-link:hover {
-    color: #adb5bd !important;
+.navbar-custom .nav-link:hover {
+	color: #f39c12;
 }
 
-.navbar-toggler-icon {
-    color: #f8f9fa;
+.text-danger {
+	font-weight: bold;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding-top: 120px; /* 고정된 헤더 공간 확보 */
-}
-
-footer {
-    padding: 1rem;
-    background-color: #343a40;
-    color: white;
-    text-align: center;
-}
-
-.table th, .table td {
-    text-align: center;
-}
-
-.project-title {
-    padding: 10px 0;
-    text-align: center;
-    font-size: 24px;
-    background-color: #ffffff; /* 배경색을 하얀색으로 설정 */
-    color: #343a40; /* 글자색을 navbar와 맞추기 */
-    border-bottom: 1px solid #ddd; /* 구분선을 추가하여 구분 */
-}
-
-.navbar-expand-lg {
-    margin-bottom: 0;
+.container-md h1 {
+	font-family: 'Courier New', Courier, monospace;
+	color: #333;
+	text-align: center;
+	margin-top: 20px;
 }
 </style>
 </head>
 <body>
+	<div class="container-md">
+		<h1>My Spring Project!!</h1>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+				<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">index</a></li>
+					<li class="nav-item"><a class="nav-link" href="/board/list">게시판 보기</a></li>
 
-    <!-- 상단 고정 헤더 (프로젝트 제목 + 네비게이션 바) -->
-    <header class="fixed-top">
-        <div class="project-title">My Spring Project!</div>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+					<sec:authorize access="isAnonymous()">
+						<li class="nav-item"><a class="nav-link" href="/user/register">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/login">로그인</a> </li>
+					</sec:authorize>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="/"> index </a> </li>
-                        <!-- 인증 객체가 만들어져있는 상태 -->
-                        <!-- 인증 객체 가져오기 -> 현재 로그인 정보는 : principal -->
-                        <sec:authorize access="isAuthenticated()">
-                        	<sec:authentication property="principal.uvo.email" var="authEmail"/>
-                        	<sec:authentication property="principal.uvo.nickName" var="authNick"/>
-                       		<li class="nav-item"> <a class="nav-link" href="/board/register"> 글 작성 </a> </li>
-                       		<li class="nav-item"> <a class="nav-link" href="#"> ${authNick }(${authEmail }) </a> </li>
-                        	<li class="nav-item"> <a class="nav-link" href="/user/logout"> 로그아웃 </a> </li>
-                        </sec:authorize>
-                        
-                        <li class="nav-item"> <a class="nav-link" href="/board/list"> 게시판 보기 </a> </li>
-                        
-                        <sec:authorize access="isAnonymous()">
-	                        <li class="nav-item"><a class="nav-link" href="/user/register">회원가입</a> </li>
-							<li class="nav-item"><a class="nav-link" href="/user/login">로그인</a> </li>
-                        </sec:authorize>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+					<sec:authorize access="isAuthenticated()">
+						<sec:authentication property="principal.uvo.email" var="authEmail" />
+						<sec:authentication property="principal.uvo.nickName" var="authNick" />
+						<sec:authentication property="principal.uvo.authList" var="auths" />
+						<li class="nav-item"><a class="nav-link" href="/board/register">게시판 글쓰기</a></li>
+						
+						<li class="nav-item"><a class="nav-link" href="/user/modify"> 회원정보수정 ${authNick} (${authEmail}) </a> </li>
+						
+						<c:if test="${auths.stream().anyMatch(authVO -> authVO.auth.equals('ROLE_ADMIN')).get()}">
+							<li class="nav-item"><a class="nav-link text-danger" href="/user/list">회원리스트(ADMIN)</a></li>
+						</c:if>
+						
+						<li class="nav-item"><a class="nav-link" href="/user/logout">로그아웃</a> </li>
+					</sec:authorize>
+				</ul>
+			</div>
+		</div>
+	</nav>
 </body>
 </html>

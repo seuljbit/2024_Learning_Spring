@@ -46,10 +46,13 @@ public class RootConfig {
 		// -- 여기서부터 추가설정
 		// cachePrepStmts : cache 사용 여부 설정
 		hikariConfig.addDataSourceProperty("dataSource.cachePrepStmts", "true");
+		
 		// mysql 드라이버가 연결당  cache 사이즈 설정 : 250~500사이 권장
 		hikariConfig.addDataSourceProperty("dataSource.prepStmtsCacheSize", "250");
+		
 		// connection당 캐싱할 prearedStatement 개수 지정 옵션 : default 250
 		hikariConfig.addDataSourceProperty("dataSource.prepStmtsCacheSqlLimit", "true"); //기본값 설정
+		
 		// mysql 서버에서 최신 이슈가 있을 경우 지원을 받을 것인지 설정
 		hikariConfig.addDataSourceProperty("dataSource.useServerPrepStmts", "true");
 		
@@ -61,6 +64,7 @@ public class RootConfig {
 	public SqlSessionFactory sqlSessionFactory () throws Exception {
 		SqlSessionFactoryBean sqlFactoryBean = new SqlSessionFactoryBean();
 		sqlFactoryBean.setDataSource(dataSource());
+		
 		// 내부 src/main/resources의 위치값이 필요
 		sqlFactoryBean.setMapperLocations(
 				applicationContext.getResources("classpath:/mappers/*.xml"));
@@ -77,6 +81,4 @@ public class RootConfig {
 	public DataSourceTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-	
-
 }

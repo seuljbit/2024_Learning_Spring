@@ -36,6 +36,7 @@
             if(page == 1){
                 ul.innerHTML=""; // 반복 전에 기존 샘플 버리기 (더보기 버튼에 의한 누적 불가능)
             }
+            
             for(let cvo of result.cmtList){
                 let li = `<li class="list-group-item" data-cno=${cvo.cno}>`;
                 li += `<div class="ms-2 me-auto">`;
@@ -49,10 +50,11 @@
                 li += `</li>`;
                 ul.innerHTML += li;
             }
+            
             //더보기 버튼 숨김여부 체크 코드
             let moreBtn = document.getElementById('moreBtn');
-            // 더보기 버튼이 표시되는 조건
-            // result = ph > pgvo > pageNo = 1 / realEndPage = 3
+            
+            // 더보기 버튼이 표시되는 조건 : result = ph > pgvo > pageNo = 1 / realEndPage = 3
             // 현재 페이지가 전체 페이지보다 작으면 표시
             if(result.pgvo.pageNo < result.realEndPage){
                 // style.visibility = "hidden" : 숨김  / 'visible' : 표시
@@ -62,7 +64,6 @@
                 // 현재 페이지가 전체보다 작지 않다면.. 같거나 크다면...
                 moreBtn.style.visibility = 'hidden'; //숨김
             }
-    
         }else{
             ul.innerHTML = `<li class="list-group-item">Comment List Empty</li>`;
         }
@@ -73,10 +74,12 @@
 document.addEventListener('click',(e)=>{
     // console.log(e.target);
     //내가 클릭한 버튼의 객체를 모달창으로 전달
+    
     if(e.target.classList.contains('mod')){
         // 내가 클릭한 버튼의 li 가져오기
         //closest : 가장 가까운(나를 포함한) 태그 (부모태그)
         let li = e.target.closest('li');
+        
         //nextSibling : 한 부모 안에서의 다음 형제 값 찾기
         let cmtText = li.querySelector('.fw-bold').nextSibling;
         console.log(cmtText);
@@ -84,15 +87,18 @@ document.addEventListener('click',(e)=>{
         let cno = li.dataset.cno;
         let cmtWriter = li.querySelector('.fw-bold').innerText;
         document.getElementById('cmtWriterMod').innerHTML = `no.${cno}  <b>${cmtWriter}</b>`;  
+        
         //cmtModBtn => cno 값을 dataset으로 달기
         document.getElementById('cmtModBtn').setAttribute("data-cno",cno);
     }
+    
     if(e.target.id == 'cmtModBtn'){
         let cmtData = {
             cno: e.target.dataset.cno,
             content: document.getElementById('cmtTextMod').value
         };
         console.log(cmtData);
+        
         updateCommentToServer(cmtData).then(result =>{
             if(result == '1'){
                 alert("댓글 수정 성공");
@@ -101,15 +107,17 @@ document.addEventListener('click',(e)=>{
             }
             //모달창 닫기 : btn-close 라는 객체를 클릭해라
             document.querySelector('.btn-close').click();
+            
             //댓글 뿌리기
             spreadCommendList(bnoVal);
         })
-        
     }
+    
     if(e.target.classList.contains('del')){
         // cno 만 있으면 됨. 
         let li = e.target.closest('li');
         let cno = li.dataset.cno;
+        
         removeCommentToServer(cno).then(result =>{
             if(result == '1'){
                 alert("댓글 삭제 성공");
@@ -120,11 +128,11 @@ document.addEventListener('click',(e)=>{
              spreadCommendList(bnoVal);
         })
     }
+    
     if(e.target.id == 'moreBtn'){
         let page = parseInt(e.target.dataset.page);
         spreadCommendList(bnoVal, page);
     }
-
 })
 
 
@@ -133,13 +141,12 @@ document.addEventListener('click',(e)=>{
         const url = "/comment/modify";
         const config={
             method:'put',
-            headers:{
-                'Content-Type' : 'application/json; charset=utf-8'
-            },
+            headers:{ 'Content-Type' : 'application/json; charset=utf-8' },
             body: JSON.stringify(cmtData)
         };
         const resp = await fetch(url, config);
         const result = await resp.text();  //isOk
+        
         return result;
     } catch (error) {
         console.log(error);
@@ -156,6 +163,7 @@ document.addEventListener('click',(e)=>{
         const resp = await fetch(url, config);
         // const resp = await fetch("/comment/"+cno, {method:'delete'});
         const result = await resp.text();  //isOk
+        
         return result;
     } catch (error) {
         console.log(error);
@@ -178,14 +186,14 @@ document.addEventListener('click',(e)=>{
         const url = "/comment/post";
         const config = {
             method: "post",
-            headers:{
-                'Content-Type':'application/json; charset=utf-8'
-            },
+            headers:{ 'Content-Type':'application/json; charset=utf-8' },
             body: JSON.stringify(cmtData)
         };
+        
         const resp = await fetch(url, config);
         console.log(resp);
         const result = await resp.text();  // isOk
+        
         return result;
     } catch (error) {
         console.log(error);

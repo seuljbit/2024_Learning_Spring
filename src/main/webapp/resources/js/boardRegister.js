@@ -24,11 +24,13 @@ document.addEventListener('change',(e)=>{
         // type="file" element 에 저장된 file 정보를 가져오는 property files
         const fileObj = document.getElementById('file').files;
         console.log(fileObj);
+        
         //한번 disabled 되면 혼자 false가 될수 없음. 버튼을 원상복구 
         document.getElementById('regBtn').disabled = false;
-        //내가 등록한 파일 정보를 파일 목록으로 기록
+        
+        // 내가 등록한 파일 정보를 파일 목록으로 기록
         // 등록한 파일이 fileValidation 에 맞지 않으면 register 버튼을 비활성화
-        // 파일 목록에 업로드 불가능이라고 빨간색 폰트추가
+        // 파일 목록에 업로드 불가능이라고 빨간색 폰트 추가
         let div = document.getElementById('fileZone');
         div.innerHTML = ""; //새로 추가되는 목록이 있다면 삭제하고 처리
 
@@ -37,8 +39,7 @@ document.addEventListener('change',(e)=>{
        let isOk = 1;
        let ul = `<ul class="list-group list-group-flush">`;
             //개별 파일에 대한 검증 / 결과 표시
-            for(let file of fileObj){
-                // 개별 파일에 대한 검증 결과 리턴 변수
+            for(let file of fileObj){ // 개별 파일에 대한 검증 결과 리턴 변수
                 let vaildResult = fileValidation(file.name, file.size);
                 isOk *= vaildResult; 
                 ul += `<li class="list-group-item">`;
@@ -48,11 +49,11 @@ document.addEventListener('change',(e)=>{
                 ul += `<span class="badge text-bg-${vaildResult ? 'success' : 'danger'} rounded-pill">${file.size}Bytes</span>`;
                 ul += `</li>`;
             }
+            
        ul += `</ul>`
        div.innerHTML = ul;
 
-       if(isOk == 0){
-        //하나라도 검증을 통과하지 못한 파일이 있다면... 버튼 비활성화
+       if(isOk == 0){ //하나라도 검증을 통과하지 못한 파일이 있다면 버튼 비활성화
         document.getElementById('regBtn').disabled = true;
        }
     }
