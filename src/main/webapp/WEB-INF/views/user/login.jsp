@@ -17,8 +17,8 @@
 	</div>
 	
 	<!-- 로그인 실패시 errMessage 출력 -->
-	<c:if test="${param.errMsg ne null }">
-		<div class="text-danger">${param.errMsg }</div>
+	<c:if test="${param.errorMessage ne null }">
+		<div class="text-danger"> <span> ${param.errorMessage } </span>  </div>
 	</c:if>
 	<button type="submit" class="btn btn-primary">Login</button>
 </form>

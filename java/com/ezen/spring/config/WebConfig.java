@@ -38,6 +38,9 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 	// 사용자 지정 설정이 필요한 경우 사용(파일 업로드)
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
+		// 사용자 지정 익셉션 처리 설정
+		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+		
 		// 파일 업로드 설정 (위치 설정)
 		String uploadLocation = "D:\\_myProject\\_java\\_fileUpload";
 		int maxFileSize = 1024*1024*20; //20MB

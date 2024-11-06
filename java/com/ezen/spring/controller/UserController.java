@@ -56,10 +56,10 @@ public class UserController {
 		// 실제 로그인은 Security의 필터에서 가져감. 
 		// 로그인 실패시 다시 로그인 페이지로 돌아와 오류 메시지를 전송
 		// 재 로그인을 유도
-		log.info(">>> errMsg >> {}", request.getAttribute("errMsg").toString());
+		log.info(">>> errorMessage >> {}", request.getAttribute("errorMessage").toString());
 		
 		re.addAttribute("email", request.getAttribute("email"));
-		re.addAttribute("errMsg", request.getAttribute("errMsg"));
+		re.addAttribute("errorMessage", request.getAttribute("errorMessage"));
 		
 		return "redirect:/user/login";
 	}
